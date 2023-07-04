@@ -10,11 +10,10 @@ export class UpdateConsumer implements OnModuleInit {
       'update-client',
       { topics: ['Update-Employee'] },
       {
-        eachMessage: async ({ topic, partition, message }) => {
+        eachMessage: async ({ topic, message }) => {
           console.log({
             source: 'Update-Employee-Consumer',
             value: message.value.toString(),
-            partition: partition.toString(),
             topic: topic.toString(),
           });
         },

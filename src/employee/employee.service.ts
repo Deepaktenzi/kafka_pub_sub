@@ -5,25 +5,26 @@ import { ProducerService } from 'src/kafka/producer/producer.service';
 export class EmployeeService {
   constructor(private _kafka: ProducerService) {}
 
-  async create() {
+  async create(body: any) {
     console.log('\n Create Call ');
+    const { data } = body;
     this._kafka.produce({
       topic: 'Create-Employee',
       messages: [
         {
-          value: 'Employee created',
+          value: 'Employee created + ' + data,
         },
       ],
     });
-    return 'Employee created return : EmployeeService';
+    return 'Create Employee Call Produced';
   }
 
-  async update() {
+  async update(body: any) {
     console.log('\n Update Call');
     this._kafka.produce({
       topic: 'Update-Employee',
-      messages: [{ value: 'Employee updated' }],
+      messages: [{ value: 'Employee updated Message ' + body.data }],
     });
-    return 'Employee updated Return : EmployeeService';
+    return 'Update Employee Call Produced';
   }
 }

@@ -10,11 +10,10 @@ export class CreateConsumer implements OnModuleInit {
       'Create-Employee',
       { topics: ['Create-Employee'] },
       {
-        eachMessage: async ({ topic, partition, message }) => {
+        eachMessage: async ({ topic, message }) => {
           console.log({
             source: 'Create-Employee-Consumer',
             value: message.value.toString(),
-            partition: partition.toString(),
             topic: topic.toString(),
           });
         },
