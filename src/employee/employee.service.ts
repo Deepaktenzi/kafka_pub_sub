@@ -7,24 +7,31 @@ export class EmployeeService {
 
   async create(body: any) {
     console.log('\n Create Call ');
-    const { data } = body;
-    this._kafka.produce({
-      topic: 'Create-Employee',
-      messages: [
-        {
-          value: 'Employee created + ' + data,
-        },
-      ],
-    });
+    for (let i = 0; i < 10; i++) {
+      const result = await this._kafka.produce({
+        topic: 'Create-Employee',
+        messages: [
+          {
+            value: JSON.stringify(body),
+          },
+        ],
+        acks: 0,
+      });
+      console.log(result);
+    }
     return 'Create Employee Call Produced';
   }
 
   async update(body: any) {
     console.log('\n Update Call');
-    this._kafka.produce({
-      topic: 'Update-Employee',
-      messages: [{ value: 'Employee updated Message ' + body.data }],
-    });
+    for (let i = 0; i < 10; i++) {
+      const result = await this._kafka.produce({
+        topic: 'Update-Employee',
+        messages: [{ value: JSON.stringify(body) }],
+        acks: 1,
+      });
+      console.log(result);
+    }
     return 'Update Employee Call Produced';
   }
 }

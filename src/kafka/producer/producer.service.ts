@@ -13,6 +13,7 @@ export class ProducerService implements OnModuleInit {
   private readonly producer: Producer = this.kafka.producer();
 
   async produce(record: ProducerRecord) {
-    await this.producer.send(record);
+    const result = await this.producer.send(record);
+    return result;
   }
 }

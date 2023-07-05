@@ -13,6 +13,7 @@ export class CreateConsumer implements OnModuleInit {
         eachMessage: async ({ topic, message }) => {
           console.log({
             source: 'Create-Employee-Consumer',
+            offset: message.offset,
             value: message.value.toString(),
             topic: topic.toString(),
           });
